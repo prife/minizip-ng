@@ -657,6 +657,10 @@ int main(int argc, const char *argv[]) {
             filename_to_extract = argv[path_arg + 1];
 
         /* Extract archive */
+        printf("path:%s\n", path);
+        printf("filename_to_extract:%s\n", filename_to_extract);
+        printf("destination:%s\n", destination);
+        printf("password:%s\n", password);
         err = minizip_extract(path, filename_to_extract, destination, password, &options);
     } else if (do_erase) {
         /* Erase file in archive */
