@@ -1001,3 +1001,18 @@ add_feature_info(MZ_BUILD_FUZZ_TESTS MZ_BUILD_FUZZ_TESTS "Builds minizip fuzzer 
 add_feature_info(MZ_CODE_COVERAGE MZ_CODE_COVERAGE "Builds with code coverage flags")
 
 feature_summary(WHAT ENABLED_FEATURES DISABLED_FEATURES INCLUDE_QUIET_PACKAGES)
+
+
+add_executable(cmd
+    cmd/main.c
+    cmd/zipper.c
+    cmd/utils.c
+    cmd/str_builder.c
+)
+if(MZ_COMPAT)
+target_compile_definitions(cmd PRIVATE -DHAVE_COMPAT)
+endif()
+set_target_properties(cmd PROPERTIES OUTPUT_NAME miniunzip)
+target_compile_definitions(cmd PRIVATE ${STDLIB_DEF} ${MINIZIP_DEF})
+target_include_directories(cmd PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} build)
+target_link_libraries(cmd ${PROJECT_NAME})
